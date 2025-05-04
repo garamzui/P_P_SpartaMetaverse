@@ -1,79 +1,37 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class BaseController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    protected Rigidbody2D _rigidbody;
+    private PlayerControl inputActions;  // 자동 생성된 클래스 이름: PlayerControl
+    private Rigidbody2D rb;
 
-    [SerializeField] private SpriteRenderer characterRenderer;
-    [SerializeField] private Transform weaponPivot;
+    private Vector2 moveInput;           // Move 액션으로부터 입력받을 값
+    public float moveSpeed = 5f;
 
-    protected Vector2 movementDirection = Vector2.zero;
-    public Vector2 MovementDirection { get { return movementDirection; } }
-
-    protected Vector2 lookDirection = Vector2.zero;
-    public Vector2 LookDirection { get { return lookDirection; } }
-
-    private Vector2 knockback = Vector2.zero;
-    private float knockbackDuration = 0.0f;
-
-    protected virtual void Awake()
+    private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
+        inputActions = new PlayerControl();  // 인스턴스 생성
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    protected virtual void Start()
+    private void OnEnable()
     {
+        inputActions.Player.Enable();
 
+        // 방향키 입력 (Vector2) 감지
+        inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
     }
 
-    protected virtual void Update()
+    private void OnDisable()
     {
-        HandleAction();
-        Rotate(lookDirection);
+        inputActions.Player.Disable();
     }
 
-    protected virtual void FixedUpdate()
+    private void FixedUpdate()
     {
-        Movment(movementDirection);
-        if (knockbackDuration > 0.0f)
-        {
-            knockbackDuration -= Time.fixedDeltaTime;
-        }
-    }
-
-    protected virtual void HandleAction()
-    {
-
-    }
-
-    private void Movment(Vector2 direction)
-    {
-        direction = direction * 5;
-        if (knockbackDuration > 0.0f)
-        {
-            direction *= 0.2f;
-            direction += knockback;
-        }
-
-        _rigidbody.velocity = direction;
-    }
-
-    private void Rotate(Vector2 direction)
-    {
-        float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        bool isLeft = Mathf.Abs(rotZ) > 90f;
-
-        characterRenderer.flipX = isLeft;
-
-        if (weaponPivot != null)
-        {
-            weaponPivot.rotation = Quaternion.Euler(0, 0, rotZ);
-        }
-    }
-
-    public void ApplyKnockback(Transform other, float power, float duration)
-    {
-        knockbackDuration = duration;
-        knockback = -(other.position - transform.position).normalized * power;
+        // X축으로만 이동 (2D 플랫폼 스타일)
+        rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y);
     }
 }
