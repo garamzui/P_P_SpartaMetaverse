@@ -1,7 +1,5 @@
 using UnityEngine;
 
-
-
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
@@ -10,27 +8,32 @@ public class PlayerController : MonoBehaviour
     private float moveX;
     private float moveY;
 
+    private SpriteRenderer spriteRenderer; // 스프라이트 반전용
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
-        // 좌우 입력: A/D 또는 ← →
         moveX = Input.GetAxisRaw("Horizontal");
-
-        // 상하 입력: W/S 또는 ↑ ↓
         moveY = Input.GetAxisRaw("Vertical");
+
+        // 좌우 방향에 따라 스프라이트 반전
+        if (moveX != 0)
+        {
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            spriteRenderer.flipX = moveX < 0;
+        }
     }
 
     private void FixedUpdate()
     {
-        // 양 축 모두 이동 (탑다운 이동)
         rb.velocity = new Vector2(moveX, moveY).normalized * moveSpeed;
     }
+
+
+
 }
-
-
-
-
