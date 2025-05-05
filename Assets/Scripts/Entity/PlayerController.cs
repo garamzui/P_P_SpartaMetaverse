@@ -1,19 +1,43 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour
+/// <summary>
+/// 플레이어 전용 컨트롤러
+/// 입력을 받아 이동 처리 및 싱글톤으로 인스턴스를 유지함
+/// </summary>
+public class PlayerController : BaseController
 {
-    public float moveSpeed = 5f;
-    private Rigidbody2D rb;
+    public static PlayerController Instance { get; private set; }
 
     private float moveX;
     private float moveY;
 
-    private SpriteRenderer spriteRenderer; // 스프라이트 반전용
+    [SerializeField] private float jumpCooldown = 1f;  // 점프 쿨타임 1초
+    private float lastJumpTime = -999f;
 
-    private void Start()
+   
+
+    private AnimatorController animatorController;
+
+    /// <summary> 싱글톤 및 DontDestroy 처리 </summary>
+
+    protected override void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        animatorController = GetComponentInChildren<AnimatorController>();
+
+        base.Awake();
+
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);  // 씬 이동 시 파괴 방지
+        }
+        else
+        {
+            Destroy(gameObject);  // 중복 방지
+        }
+
+       
     }
 
     private void Update()
@@ -21,19 +45,35 @@ public class PlayerController : MonoBehaviour
         moveX = Input.GetAxisRaw("Horizontal");
         moveY = Input.GetAxisRaw("Vertical");
 
-        // 좌우 방향에 따라 스프라이트 반전
+        // 횡스크롤 맵이라면 Y축 입력을 무시 (위아래 이동 불가)
+        if (GameManager.Instance.isSideScroll)
+        {
+            moveY = 0f;
+        }
+
+        // 이동 애니메이션 트리거
+        animatorController.SetMove(moveX != 0 || moveY != 0);
+
+        // 좌우 방향 반전 처리
         if (moveX != 0)
         {
-            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-            spriteRenderer.flipX = moveX < 0;
+            animatorController.SetFlip(moveX < 0);
+        }
+
+        // 점프 입력 및 쿨타임 검사
+        if (Input.GetKeyDown(KeyCode.C) && Time.time >= lastJumpTime + jumpCooldown)
+        {
+            animatorController.SetJumpTrigger();       // 점프 애니메이션 실행
+            lastJumpTime = Time.time;                  // 쿨타임 갱신
         }
     }
 
+    /// <summary> 이동 처리 (물리 연산 기반 이동) </summary>
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(moveX, moveY).normalized * moveSpeed;
+        Vector2 input = new Vector2(moveX, moveY);
+        Move(input);  // BaseController의 Move 호출
     }
 
-
-
+   
 }
