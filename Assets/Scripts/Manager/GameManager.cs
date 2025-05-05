@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         
-
         if (Instance == null)
         {
             Instance = this;
@@ -19,7 +18,11 @@ public class GameManager : MonoBehaviour
         { 
             Destroy(gameObject);   //중복생성 방지  
         }
+ 
     }
+
+
+   
 
 
     private void OnEnable()//씬이 바뀔 때마다 자동으로 알림받도록 이벤트 등록
@@ -49,9 +52,10 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-    public bool isSideScroll = false;                   // 현재 씬이 횡스크롤인지 판단
+    private bool isSideScroll = false;                   // 현재 씬이 횡스크롤인지 판단
+    public bool IsSideScroll { get; set; }
 
-    private void SetTopDownMode()//탑뷰 모드일 때 위치랑 중력 설정
+    public void SetTopDownMode()//탑뷰 모드일 때 위치랑 중력 설정
     {
         var player = PlayerController.Instance;
 
@@ -59,12 +63,11 @@ public class GameManager : MonoBehaviour
         {
             player.transform.position = new Vector2(0, 0);      // 시작 위치 설정
             player.GetComponent<Rigidbody2D>().gravityScale = 0f; // 중력 없음
-            isSideScroll = false;
+            IsSideScroll = false;
         }
     }
     
-    
-  
+
 
     private void SetSideScrollMode() //횡스크롤 맵일 땐 아래처럼 중력을 강하게 주고 위치도 약간 띄워줘
     {
@@ -74,15 +77,11 @@ public class GameManager : MonoBehaviour
         {
             player.transform.position = new Vector2(0, 2);      // 약간 위에서 시작
             player.GetComponent<Rigidbody2D>().gravityScale = 20f; // 중력 적용
-            isSideScroll = true;
+            IsSideScroll = true;
         }
     }
- 
+
 
 
    
-
- 
-
-
 }

@@ -61,4 +61,9 @@ public class AnimatorController : MonoBehaviour
         if (spriteRenderer != null)
             spriteRenderer.flipX = flip;
     }
+
+    public void SetAttackTrigger()
+    {
+        animator.SetTrigger("IsAttack");
+    }
 }

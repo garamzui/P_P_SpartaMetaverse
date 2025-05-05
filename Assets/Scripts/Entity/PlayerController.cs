@@ -14,8 +14,25 @@ public class PlayerController : BaseController
 
     [SerializeField] private float jumpCooldown = 1f;  // 점프 쿨타임 1초
     private float lastJumpTime = -999f;
+    //무기 프리팹 자리
+    [Header("무기")]
+    [SerializeField] private Weapon weaponRight;
+    [SerializeField] private Weapon weaponLeft;
 
-   
+    private bool isRightHandNext = true;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            if (isRightHandNext)
+                weaponRight.Use();
+            else
+                weaponLeft.Use();
+
+            isRightHandNext = !isRightHandNext;
+        }
+    }
 
     private AnimatorController animatorController;
 
@@ -40,13 +57,13 @@ public class PlayerController : BaseController
        
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         moveX = Input.GetAxisRaw("Horizontal");
         moveY = Input.GetAxisRaw("Vertical");
 
         // 횡스크롤 맵이라면 Y축 입력을 무시 (위아래 이동 불가)
-        if (GameManager.Instance.isSideScroll)
+        if (GameManager.Instance.IsSideScroll)
         {
             moveY = 0f;
         }
