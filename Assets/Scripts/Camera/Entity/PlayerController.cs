@@ -36,6 +36,7 @@ public class PlayerController : BaseController
     [SerializeField] private float jumpPower = 50f;       // 점프 힘
     [SerializeField] private int maxJumpCount = 2;
     private int currentJumpCount = 0;
+    private bool wasGrounded = false;
 
     private bool isJumping = false;
 
@@ -68,7 +69,7 @@ public class PlayerController : BaseController
     {
         base.Awake();
         animatorController = GetComponentInChildren<AnimatorController>();
-        
+
         // 싱글톤 인스턴스 설정
         if (Instance == null)
         {
@@ -90,9 +91,9 @@ public class PlayerController : BaseController
         HandleAnimation();     // 이동 애니메이션 처리
         HandleWeaponRotation(); // 무기 피벗 회전
         HandleSpriteFlip();    // 캐릭터 좌우 반전
-                 // 점프 입력 처리
+                            
         HandleAttack();        // 공격 입력 및 연타 처리
-        
+
     }
 
     /// <summary>
@@ -101,8 +102,21 @@ public class PlayerController : BaseController
     private void FixedUpdate()
     {
         Vector2 input = new Vector2(moveX, moveY);
-        Move(input); // BaseController의 이동 처리 호출
-        HandleJump();
+
+
+        if (!GameManager.Instance.IsSideScroll)
+        {
+            Move(input);
+        }
+        else { AutoRun(); }
+            
+         // BaseController의 이동 처리 호출
+       
+        
+        
+        
+        
+        HandleJump();   // 점프 입력 처리
         if (GameManager.Instance.IsSideScroll)
         {
             if (Mathf.Abs(rb.velocity.y) < 0.01f && currentJumpCount > 0)
@@ -123,7 +137,7 @@ public class PlayerController : BaseController
         {
             // 입력 차단 (플레이어는 자동으로 오른쪽 이동)
             moveX = 1f;   // 계속 오른쪽으로 이동
-             
+
         }
         else
         {
@@ -174,26 +188,27 @@ public class PlayerController : BaseController
             mainPivot.localScale = new Vector3(moveX < 0 ? -1f : 1f, 1f, 1f); // flipX 효과
     }
 
-    
+
     /// <summary>
     /// 점프 키 입력 감지 및 쿨타임 확인 후 점프 실행
     /// </summary>
     private void HandleJump()
     {
-         if (Input.GetKeyDown(KeyCode.C))
-    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
             if (GameManager.Instance.IsSideScroll)
             {
                 if (currentJumpCount < maxJumpCount)
                 {
-                    Vector3 v = rb.velocity;
-                    /*rb.velocity = new Vector2(rb.velocity.x, 0f);*/ // 점프 전에 Y속도 초기화
-                    v.y +=  jumpPower;
-                    rb.velocity = v;
-                    //(Vector2.up * jumpPower, ForceMode2D.Impulse);
+                    //Vector3 v = rb.velocity;
+                    //v.y +=  jumpPower;
+                    //rb.velocity = v;
+                    rb.velocity = new Vector2(rb.velocity.x, 0f); // Y 속도 초기화
+                    rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+
                     currentJumpCount++;
                     animatorController.SetRJump(true);
-                    Debug.Log($"점프! ({currentJumpCount}/{maxJumpCount})");
+                    Debug.Log($"점프 {currentJumpCount}/{maxJumpCount}");
                 }
             }
             else
@@ -239,7 +254,7 @@ public class PlayerController : BaseController
                     weaponLeft.UseSkill();
                     weaponRight.UseSkill();
 
-                    
+
 
                     isRightHandNext = !isRightHandNext;
                     lastSkillTime = Time.time;

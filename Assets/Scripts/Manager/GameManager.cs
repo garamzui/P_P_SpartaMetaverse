@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
         if (player != null)
         {
             player.transform.position = new Vector2(-5, 0);     
-            player.GetComponent<Rigidbody2D>().gravityScale = 3f; // 중력 적용
+            player.GetComponent<Rigidbody2D>().gravityScale = 1f; // 중력 적용
             IsSideScroll = true;
             
         }

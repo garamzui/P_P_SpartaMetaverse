@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour
     {
         animatorController.SetAttackTrigger();
         Debug.Log($"{gameObject.name} 공격 실행!");
-        StartCoroutine(SwingMotion());
+        //StartCoroutine(SwingMotion());
     }
 
     public void UseSkill()
@@ -25,13 +25,13 @@ public class Weapon : MonoBehaviour
         
     }
 
-    private IEnumerator SwingMotion()
-    {
-        Vector3 origin = transform.localPosition;
-        Vector3 swing = origin + new Vector3(0.2f, 0.1f, 0); // 예시
+    //private IEnumerator SwingMotion()
+    //{
+    //    Vector3 origin = transform.localPosition;
+    //    Vector3 swing = origin + new Vector3(2f, 1f, 0); // 예시
 
-        transform.localPosition = swing;
-        yield return new WaitForSeconds(0.1f);
-        transform.localPosition = origin;
-    }
+    //    transform.localPosition = swing;
+    //    yield return new WaitForSeconds(0.1f);
+    //    transform.localPosition = origin;
+    //}
 }

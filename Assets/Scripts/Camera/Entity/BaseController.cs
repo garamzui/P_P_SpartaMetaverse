@@ -23,13 +23,25 @@ public abstract class BaseController : MonoBehaviour
     /// <summary> 이동 처리: 속도 적용 및 방향 반전 </summary>
     protected virtual void Move(Vector2 input)
     {
-        rb.velocity = input.normalized * status.MoveSpeed;
+        
+            rb.velocity = input.normalized * status.MoveSpeed;
+            Debug.Log("지금이니");
+            // 좌우 반전 처리
+            if (input.x != 0)
+                spriteRenderer.flipX = input.x < 0; 
 
-        // 좌우 반전 처리
-        if (input.x != 0)
-            spriteRenderer.flipX = input.x < 0;
+     }
+    protected virtual void AutoRun()
+    {
+        Vector2 velocity = rb.velocity;
+        velocity.x = status.MoveSpeed; // x축만 강제로 설정
+        rb.velocity = velocity;
+
+        if (velocity.x != 0)
+        {
+            spriteRenderer.flipX = velocity.x < 0;
+        }
     }
-
     /// <summary> 데미지를 받을 때 외부에서 호출하는 메서드 </summary>
     public virtual void TakeDamage(int amount)
     {
