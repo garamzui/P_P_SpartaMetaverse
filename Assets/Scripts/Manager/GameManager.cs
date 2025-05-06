@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
   public static GameManager Instance; //싱글톤 작성
     private void Awake()
     {
-        
+        Application.targetFrameRate = 60;
         if (Instance == null)
         {
             Instance = this;
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-    private bool isSideScroll = false;                   // 현재 씬이 횡스크롤인지 판단
+              // 현재 씬이 횡스크롤인지 판단
     public bool IsSideScroll { get; set; }
 
     public void SetTopDownMode()//탑뷰 모드일 때 위치랑 중력 설정

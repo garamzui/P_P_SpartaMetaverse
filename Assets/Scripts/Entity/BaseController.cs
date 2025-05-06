@@ -17,7 +17,7 @@ public abstract class BaseController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        status.Init(this);
+        //status.Init(this);
     }
 
     /// <summary> 이동 처리: 속도 적용 및 방향 반전 </summary>
