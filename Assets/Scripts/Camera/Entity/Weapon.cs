@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    public Animator animator;
     private AnimatorController animatorController;
     private void Awake()
     {
@@ -15,6 +16,13 @@ public class Weapon : MonoBehaviour
         animatorController.SetAttackTrigger();
         Debug.Log($"{gameObject.name} 공격 실행!");
         StartCoroutine(SwingMotion());
+    }
+
+    public void UseSkill()
+    {
+        animatorController.SetSkillTrigger();
+
+        
     }
 
     private IEnumerator SwingMotion()

@@ -15,11 +15,24 @@ public class CameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (target != null)
+        if (GameManager.Instance.IsSideScroll)
         {
-            // 예시: X,Y만 따라가는 방식
-            Vector3 newPos = new Vector3(target.position.x, target.position.y, transform.position.z);
-            transform.position = newPos;
+            if (target != null)
+            {
+                // 예시: X,Y만 따라가는 방식
+                Vector3 newPos = new Vector3(target.position.x+5.5f, target.position.y, transform.position.z);
+                transform.position = newPos;
+            }
+
+        }
+        else
+        {
+            if (target != null)
+            {
+                // 예시: X,Y만 따라가는 방식
+                Vector3 newPos = new Vector3(target.position.x, target.position.y, transform.position.z);
+                transform.position = newPos;
+            }
         }
     }
 }

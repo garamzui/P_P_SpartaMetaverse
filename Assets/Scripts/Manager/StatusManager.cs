@@ -129,8 +129,10 @@ public class StatusManager
                 {
                     mpTimer -= 1f;
                     if (currentMP < maxMP)
+                    {
                         currentMP += 1;
-                    Debug.Log("MP1회복");
+                        Debug.Log("MP1회복");
+                    }
                 }
             }
         }

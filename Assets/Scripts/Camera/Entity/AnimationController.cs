@@ -36,6 +36,11 @@ public class AnimatorController : MonoBehaviour
         animator.SetBool("IsMove", isMoving);
     }
 
+    public void SetRJump(bool isRJump)
+    {
+        animator.SetBool("IsRJump", isRJump);
+    }
+
     /// <summary>
     /// 점프 시 'IsJump' 트리거 발동
     /// </summary>
@@ -65,5 +70,9 @@ public class AnimatorController : MonoBehaviour
     public void SetAttackTrigger()
     {
         animator.SetTrigger("IsAttack");
+    }
+    public void SetSkillTrigger()
+    {
+        animator.SetTrigger("IsSkill");
     }
 }

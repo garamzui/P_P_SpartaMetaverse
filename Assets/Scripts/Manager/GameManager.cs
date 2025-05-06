@@ -72,12 +72,13 @@ public class GameManager : MonoBehaviour
     private void SetSideScrollMode() //횡스크롤 맵일 땐 아래처럼 중력을 강하게 주고 위치도 약간 띄워줘
     {
         var player = PlayerController.Instance;
-
+        
         if (player != null)
         {
-            player.transform.position = new Vector2(0, 2);      // 약간 위에서 시작
-            player.GetComponent<Rigidbody2D>().gravityScale = 20f; // 중력 적용
+            player.transform.position = new Vector2(-5, 0);     
+            player.GetComponent<Rigidbody2D>().gravityScale = 3f; // 중력 적용
             IsSideScroll = true;
+            
         }
     }
 
