@@ -25,7 +25,7 @@ public abstract class BaseController : MonoBehaviour
     {
         
             rb.velocity = input.normalized * status.MoveSpeed;
-            Debug.Log("지금이니");
+            
             // 좌우 반전 처리
             if (input.x != 0)
                 spriteRenderer.flipX = input.x < 0; 

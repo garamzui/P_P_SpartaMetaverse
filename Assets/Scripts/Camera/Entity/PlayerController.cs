@@ -27,7 +27,7 @@ public class PlayerController : BaseController
 
 
     [Header("탑뷰 연출 점프 설정")]
-    [SerializeField] private float jumpCooldown = 1f; // 점프 간격
+    
     private float lastJumpTime = -999f; // 마지막 점프 시간 기록
     [Header("횡스크롤 물리 기반 점프 시스템")]
     [SerializeField] private Transform groundCheck;      // 바닥 판정 위치

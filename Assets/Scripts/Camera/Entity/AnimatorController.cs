@@ -75,4 +75,14 @@ public class AnimatorController : MonoBehaviour
     {
         animator.SetTrigger("IsSkill");
     }
+
+    public void SetNPCHitTrigger()
+    {
+        animator.SetTrigger("IsHit");
+    }
+
+    public void SetNPCUseHealTrigger()
+    {
+        animator.SetTrigger("IsHeal");
+    }
 }
