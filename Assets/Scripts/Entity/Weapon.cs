@@ -5,10 +5,10 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public Animator animator;
-    private AnimatorController animatorController;
+    private MyAnimatorController animatorController;
     private void Awake()
     {
-        animatorController = GetComponent<AnimatorController>();
+        animatorController = GetComponent<MyAnimatorController>();
 
     }
     public void Use()

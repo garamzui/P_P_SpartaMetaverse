@@ -9,11 +9,11 @@ public class NPCController : MonoBehaviour
     public float heal;
     private bool playerInRange = false;
     public Animator animator;
-    private AnimatorController animatorController;
+    private MyAnimatorController animatorController;
     private void Start()
     {
 
-        animatorController = GetComponent<AnimatorController>();
+        animatorController = GetComponentInChildren<MyAnimatorController>();
         heal = PlayerController.Instance.MaxHP;
     }
     void Update()
@@ -45,7 +45,7 @@ public class NPCController : MonoBehaviour
 
         if (other.CompareTag("Attack"))
         {
-            animatorController.SetNPCHitTrigger();
+            animatorController.SetNPCHitrigger();
         }
     }
     private void OnTriggerExit2D(Collider2D other)

@@ -5,7 +5,7 @@ using UnityEngine;
 /// 이동, 점프, 데미지 등의 애니메이션 상태를 설정한다.
 /// 스프라이트 방향 전환도 포함할 수 있다.
 /// </summary>
-public class AnimatorController : MonoBehaviour
+public class MyAnimatorController : MonoBehaviour
 {
     /// <summary>
     /// 애니메이션 컨트롤을 위한 Animator 컴포넌트
@@ -23,8 +23,8 @@ public class AnimatorController : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponentInChildren<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     /// <summary>
@@ -80,7 +80,7 @@ public class AnimatorController : MonoBehaviour
         animator.SetTrigger("IsCrash");
     }
 
-    public void SetNPCHitTrigger()
+    public void SetNPCHitrigger()
     {
         animator.SetTrigger("IsHit");
     }

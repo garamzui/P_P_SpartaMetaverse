@@ -50,7 +50,7 @@ public class PlayerController : BaseController
     private bool isRightHandNext = true;  // 다음 공격할 손
 
     // 애니메이션 제어용 컨트롤러
-    private AnimatorController animatorController;
+    private MyAnimatorController animatorController;
 
     [SerializeField] private int skillCost = 10; // 스킬 MP 소모량
     [SerializeField] private float skillCooldown = 1f;   // 스킬 쿨타임 (1초)
@@ -69,7 +69,7 @@ public class PlayerController : BaseController
     protected override void Awake()
     {
         base.Awake();
-        animatorController = GetComponentInChildren<AnimatorController>();
+        animatorController = GetComponentInChildren<MyAnimatorController>();
 
         // 싱글톤 인스턴스 설정
         if (Instance == null)
