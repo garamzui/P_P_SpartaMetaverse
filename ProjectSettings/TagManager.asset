@@ -8,6 +8,7 @@ TagManager:
   - groundLayer
   - Attack
   - BackGround
+  - NPCBody
   layers:
   - Default
   - TransparentFX

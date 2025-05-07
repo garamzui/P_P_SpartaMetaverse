@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
   public static GameManager Instance; //½Ì±ÛÅæ ÀÛ¼º
-  public GameObject restartbutton;
-  public GameObject StartPanel;
+    public StatusManager playerStats = new StatusManager();
 
     private void Awake()
     {
@@ -45,13 +44,16 @@ public class GameManager : MonoBehaviour
         {
             case "MainMap":
                 SetTopDownMode();     // Å¾ºä ¸ðµå
+               
                 break;
 
             case "Dungeon":
                 SetTopDownMode();  // È¾½ºÅ©·Ñ ¸ðµå
+                UIManager.Instance.exitButton.SetActive(true);
                 break;
             case "JumpGame":
                 SetSideScrollMode();
+                UIManager.Instance.exitButton.SetActive(true);
                 break;
         }
     }
@@ -74,6 +76,7 @@ public class GameManager : MonoBehaviour
 
     private void SetSideScrollMode() //È¾½ºÅ©·Ñ ¸ÊÀÏ ¶© ¾Æ·¡Ã³·³ Áß·ÂÀ» °­ÇÏ°Ô ÁÖ°í À§Ä¡µµ ¾à°£ ¶ç¿öÁà
     {
+       
         var player = PlayerController.Instance;
         
         if (player != null)
@@ -85,7 +88,8 @@ public class GameManager : MonoBehaviour
         }
 
 
-
+        UIManager.Instance.startPanel.SetActive(true);
+        Time.timeScale = 0f;
 
 
     }

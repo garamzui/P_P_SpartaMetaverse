@@ -86,6 +86,7 @@ public class StatusManager
             Die();
         }
     }
+   
 
     /// <summary>
     /// 체력 0 이하일 때 호출되는 내부 사망 처리 함수
@@ -93,9 +94,9 @@ public class StatusManager
     /// </summary>
     private void Die()
     {
-       
-        
-        
+        UIManager.Instance.restartbutton.SetActive(true);
+
+        Time.timeScale = 0f;
         Debug.Log("[Status] 사망 처리");
         // 사망 처리 로직은 외부 컨트롤러 또는 이벤트 시스템에서 담당
     }
@@ -155,5 +156,15 @@ public class StatusManager
         currentMP -= amount;
         Debug.Log($"[Status] MP {amount} 사용 → 남은 MP: {currentMP}");
         return true;
+    }
+    // 완전 회복용 매서드
+    public void RecoverHP()
+    {
+        currentHP = maxHP;
+    }
+
+    public void RecoverMP()
+    {
+        currentMP = maxMP;
     }
 }

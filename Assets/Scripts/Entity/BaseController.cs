@@ -8,7 +8,7 @@ public abstract class BaseController : MonoBehaviour
 {
     [Header("능력치 관리")]
     [SerializeField] protected StatusManager status = new StatusManager();  // 인스펙터에서 보이도록 new로 생성
-
+    public StatusManager Status { get; set; }
     protected Rigidbody2D rb;                    // 이동을 위한 리지드바디
     protected SpriteRenderer spriteRenderer;     // 좌우 반전을 위한 스프라이트 렌더러
 

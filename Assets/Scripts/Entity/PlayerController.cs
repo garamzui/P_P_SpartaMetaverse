@@ -13,7 +13,7 @@ public class PlayerController : BaseController
 {
     /// <summary> 전역에서 접근 가능한 인스턴스 (싱글톤) </summary>
     public static PlayerController Instance { get; private set; }
-
+  
     // 입력값 저장
     private float moveX;
     private float moveY;
@@ -58,7 +58,7 @@ public class PlayerController : BaseController
     private void Start()
     {
         status.Init(this);
-        PlayerUI.Instance.Init(status);
+        UIManager.Instance.Init(status);
     }
 
 
@@ -250,7 +250,7 @@ public class PlayerController : BaseController
                     Debug.Log($"스킬 발동! 데미지: {damage}");
 
 
-                    animatorController.SetSkillTrigger();
+                    
                     weaponLeft.UseSkill();
                     weaponRight.UseSkill();
 

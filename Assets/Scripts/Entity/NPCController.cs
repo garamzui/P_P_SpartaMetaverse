@@ -12,6 +12,7 @@ public class NPCController : MonoBehaviour
     private AnimatorController animatorController;
     private void Start()
     {
+        
         animatorController = GetComponent<AnimatorController>();
         heal = PlayerController.Instance.MaxHP;
     }
@@ -36,7 +37,7 @@ public class NPCController : MonoBehaviour
                 healCanvas.SetActive(true);
         }
         
-        if (other.CompareTag("Attack"))
+        if (other.CompareTag("Attack") )
         {
             animatorController.SetNPCHitTrigger();
         }
@@ -50,9 +51,11 @@ public class NPCController : MonoBehaviour
                 healCanvas.SetActive(false);
         }
     }
-
+   
     private void HealPlayer()
     {
+        PlayerController.Instance.Status.RecoverMP();
+        PlayerController.Instance.Status.RecoverHP();
         Debug.Log("Èú ¿Ï·á");
         animatorController.SetNPCUseHealTrigger();
     }
