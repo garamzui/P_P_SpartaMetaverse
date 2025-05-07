@@ -15,7 +15,8 @@ public class UIManager : MonoBehaviour
     public GameObject restartbutton;
     public GameObject startPanel;
     public GameObject jumpGameStartButton;
-   
+    public GameObject OperationInstructions;
+
     public GameObject exitButton;
     private void Awake()
     {
@@ -60,7 +61,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void BackToMain()
-    {
+    { 
         GameManager.Instance.currentScore = 0;
         UpdateScore(0, GameManager.Instance.bestScore);
         GameManager.Instance.SetTopDownMode();
@@ -68,7 +69,8 @@ public class UIManager : MonoBehaviour
         exitButton.SetActive(false);
         currentScore.gameObject.SetActive(false);
         bestScoreText.gameObject .SetActive(false);
-            }
+        OperationInstructions.SetActive(true);
+    }
     
     public void ReStart()
     {

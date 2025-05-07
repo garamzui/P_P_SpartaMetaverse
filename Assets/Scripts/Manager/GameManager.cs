@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
             
         }
 
-
+       UIManager.Instance. OperationInstructions.SetActive(false);
         UIManager.Instance.startPanel.SetActive(true);
         Time.timeScale = 0f;
 
