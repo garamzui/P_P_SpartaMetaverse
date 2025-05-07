@@ -70,6 +70,7 @@ public class UIManager : MonoBehaviour
         currentScore.gameObject.SetActive(false);
         bestScoreText.gameObject .SetActive(false);
         OperationInstructions.SetActive(true);
+        MiniGameOperationInstructions.SetActive(false);
     }
     
     public void ReStart()

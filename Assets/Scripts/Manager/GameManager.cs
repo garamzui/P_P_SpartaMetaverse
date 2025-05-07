@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
             IsSideScroll = true;
             
         }
-        UIManager.Instance.MiniGameOperationInstructions.SetActive(false);
+        UIManager.Instance.MiniGameOperationInstructions.SetActive(true);
         UIManager.Instance. OperationInstructions.SetActive(false);
         UIManager.Instance.startPanel.SetActive(true);
         Time.timeScale = 0f;
