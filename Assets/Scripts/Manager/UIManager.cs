@@ -89,8 +89,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI hpText;
     [SerializeField] private TextMeshProUGUI mpText;
 
-   // (아래에서 설명!)
-
+   
    
 
     /// <summary>
