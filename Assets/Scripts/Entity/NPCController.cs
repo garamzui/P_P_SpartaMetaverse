@@ -19,22 +19,26 @@ public class NPCController : MonoBehaviour
     void Update()
     {
 
-      
-        if (playerInRange && Input.GetKeyDown(KeyCode.F))
+
+        if (playerInRange && Input.GetKeyDown(KeyCode.H))
         {
             HealPlayer();
         }
-
+        else if (playerInRange && Input.GetKeyDown(KeyCode.B))
+        { }
+        else if (playerInRange && Input.GetKeyDown(KeyCode.D))
+        { }
+    
     }
-    public GameObject healCanvas;
+    public GameObject SelectInteraction;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
-            if (healCanvas != null)
-                healCanvas.SetActive(true);
+            if (SelectInteraction != null)
+                SelectInteraction.SetActive(true);
         }
         
         if (other.CompareTag("Attack") )
@@ -47,8 +51,8 @@ public class NPCController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            if (healCanvas != null)
-                healCanvas.SetActive(false);
+            if (SelectInteraction != null)
+                SelectInteraction.SetActive(false);
         }
     }
    
