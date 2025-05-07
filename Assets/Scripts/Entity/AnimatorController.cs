@@ -75,6 +75,10 @@ public class AnimatorController : MonoBehaviour
     {
         animator.SetTrigger("IsSkill");
     }
+    public void SetCrashTrigger()
+    {
+        animator.SetTrigger("IsCrash");
+    }
 
     public void SetNPCHitTrigger()
     {

@@ -44,11 +44,12 @@ public class Obstacle : MonoBehaviour
         return placePosition;
 
     }
-
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    Player player = collision.GetComponent<Player>();
-    //    if (player != null)
-    //        gameManager.AddScore(1);
-    //}
+    //미니게임용 충돌 감지 점수
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            gameManager.AddScore(1);
+        }
+    }
 }

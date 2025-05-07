@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class EventSingletone : MonoBehaviour
 {
      public static EventSingletone Instance; //ΩÃ±€≈Ê ¿€º∫

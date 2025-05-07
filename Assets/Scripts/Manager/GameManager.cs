@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
   public static GameManager Instance; //싱글톤 작성
-    public StatusManager playerStats = new StatusManager();
+    
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         { 
             Destroy(gameObject);   //중복생성 방지  
         }
- 
+        uiManager = UIManager.Instance;
     }
 
 
@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
         switch (scene.name)
         {
             case "MainMap":
+               
                 SetTopDownMode();     // 탑뷰 모드
                
                 break;
@@ -95,6 +96,24 @@ public class GameManager : MonoBehaviour
     }
 
 
-
+    //미니게임용 스코어
+    UIManager uiManager;
+    public UIManager UIManager { get { return uiManager; } }
+   public int currentScore { get; set; } 
+    public int bestScore {  get; set; } 
+    public void AddScore(int score)
+    {
+        currentScore += score;
+        
+        if (bestScore <= currentScore)
+        { bestScore = currentScore; }
+        
+        
+        Debug.Log("Score:" + currentScore);
+        UIManager.UpdateScore(currentScore,bestScore);
+     
+    }
    
+
+
 }

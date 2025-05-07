@@ -90,15 +90,15 @@ public class StatusManager
 
     /// <summary>
     /// 체력 0 이하일 때 호출되는 내부 사망 처리 함수
-    /// 실제 게임에서는 이 함수를 기반으로 애니메이션 또는 이벤트 호출
+    
     /// </summary>
     private void Die()
     {
-        UIManager.Instance.restartbutton.SetActive(true);
+        UIManager.Instance.gameOverPanel.SetActive(true);
 
         Time.timeScale = 0f;
         Debug.Log("[Status] 사망 처리");
-        // 사망 처리 로직은 외부 컨트롤러 또는 이벤트 시스템에서 담당
+       
     }
     /// <summary>
     /// 자동회복 함수

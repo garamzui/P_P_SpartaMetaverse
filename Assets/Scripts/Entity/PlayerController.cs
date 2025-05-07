@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -104,18 +105,34 @@ public class PlayerController : BaseController
         Vector2 input = new Vector2(moveX, moveY);
 
 
-        if (!GameManager.Instance.IsSideScroll)
+        if (!GameManager.Instance.IsSideScroll) // Move의 방식이 Y값을 계속 초기화해서 점프 구현에 문제가 생겨 여기서 예외처리함
         {
-            Move(input);
-        }
-        else { AutoRun(); }
-            
-         // BaseController의 이동 처리 호출
+            Move(input); // BaseController의 이동 처리 호출
        
-        
-        
-        
-        
+        }
+        else
+        {
+            // 넉백 중엔 AutoRun 잠시 중단
+            if (!isKnockback)
+            {
+                AutoRun();
+            }
+           
+        }
+        //넉백 타이머 갱신 
+        if (isKnockback)
+        {
+            knockbackTimer -= Time.fixedDeltaTime;
+            if (knockbackTimer <= 0f)
+            {
+                isKnockback = false;
+            }
+        }
+
+
+
+
+
         HandleJump();   // 점프 입력 처리
         if (GameManager.Instance.IsSideScroll)
         {
@@ -269,5 +286,36 @@ public class PlayerController : BaseController
                 Debug.Log("쿨타임 중! 발동 불가");
             }
         }
+    }
+
+
+    //미니게임용 충돌 대미지 및 넉백 연출
+    private bool isKnockback = false;
+    private float knockbackDuration = 0.5f;
+    private float knockbackTimer = 0f;
+    private void ApplyKnockback()
+    {
+        Vector2 knockbackForce = new Vector2(-10f, 5f);
+        rb.velocity = Vector2.zero;
+        rb.AddForce(knockbackForce, ForceMode2D.Impulse);
+        animatorController.SetCrashTrigger();
+        isKnockback = true;
+        knockbackTimer = knockbackDuration;
+
+        Debug.Log("넉백!");
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("HitZone"))
+        {
+            ApplyDamage(25); // 고정 대미지 or 장애물 속성에 따라
+        }
+    }
+    public void ApplyDamage(int dmg)
+    {
+        
+            status.TakeDamage(dmg); // ← 너가 위에 써둔 StatusManager의 TakeDamage 호출
+            ApplyKnockback();
+        
     }
 }
