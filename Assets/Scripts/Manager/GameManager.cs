@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
   public static GameManager Instance; //ΩÃ±€≈Ê ¿€º∫
+  public GameObject restartbutton;
+  public GameObject StartPanel;
+
     private void Awake()
     {
         Application.targetFrameRate = 60;
