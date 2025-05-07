@@ -16,7 +16,7 @@ public class StatusManager
     [SerializeField] private int maxHP = 100;           // 최대 체력
     [SerializeField] private int maxMP = 50;            // 최대 마나
     [SerializeField] private int attack = 10;           // 공격력
-    [SerializeField] private int defense = 5;           // 방어력
+   
     [SerializeField] private float moveSpeed = 5f;      // 이동 속도
 
     // 현재 상태 (런타임에만 사용됨, Inspector에서는 숨김)
@@ -50,7 +50,7 @@ public class StatusManager
     public int Attack => attack;
 
     /// <summary> 방어력 </summary>
-    public int Defense => defense;
+    
 
     /// <summary> 최대 체력 </summary>
     public int MaxHP => maxHP;
@@ -74,11 +74,11 @@ public class StatusManager
     /// <param name="dmg">받은 공격력</param>
     public void TakeDamage(int dmg)
     {
-        // 방어력을 적용한 최종 데미지 계산 (최소 1 보장)
-        int finalDmg = Mathf.Max(1, dmg - defense);
-        currentHP -= finalDmg;
+       
+        
+        currentHP -= dmg;
 
-        Debug.Log($"[Status] 피해 {finalDmg} → 현재 체력: {currentHP}");
+        Debug.Log($"[Status] 피해 {dmg} → 현재 체력: {currentHP}");
 
         // 체력이 0 이하라면 사망 처리
         if (currentHP <= 0)
@@ -93,6 +93,9 @@ public class StatusManager
     /// </summary>
     private void Die()
     {
+       
+        
+        
         Debug.Log("[Status] 사망 처리");
         // 사망 처리 로직은 외부 컨트롤러 또는 이벤트 시스템에서 담당
     }

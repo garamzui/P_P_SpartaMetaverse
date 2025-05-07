@@ -19,8 +19,8 @@ public class CameraFollow : MonoBehaviour
         {
             if (target != null)
             {
-                // 예시: X,Y만 따라가는 방식
-                Vector3 newPos = new Vector3(target.position.x+5.5f, target.position.y, transform.position.z);
+                // X만 따라가는 방식
+                Vector3 newPos = new Vector3(target.position.x+5.5f, 0f, transform.position.z);
                 transform.position = newPos;
             }
 
@@ -29,7 +29,7 @@ public class CameraFollow : MonoBehaviour
         {
             if (target != null)
             {
-                // 예시: X,Y만 따라가는 방식
+                //  X,Y만 따라가는 방식
                 Vector3 newPos = new Vector3(target.position.x, target.position.y, transform.position.z);
                 transform.position = newPos;
             }

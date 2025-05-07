@@ -36,9 +36,9 @@ public class PlayerController : BaseController
     [SerializeField] private float jumpPower = 50f;       // 점프 힘
     [SerializeField] private int maxJumpCount = 2;
     private int currentJumpCount = 0;
-    private bool wasGrounded = false;
+   
 
-    private bool isJumping = false;
+
 
 
     [Header("무기 설정")]

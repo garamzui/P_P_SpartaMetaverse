@@ -80,6 +80,11 @@ public class GameManager : MonoBehaviour
             IsSideScroll = true;
             
         }
+
+
+
+
+
     }
 
 
